@@ -132,7 +132,6 @@
     _currentImageIndex = 0;
     //初始化timer间隔时间(默认3.0s)
     _timeInterval = 3.0;
-
     
     //添加滚动视图
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
@@ -443,10 +442,13 @@
 
 -(void) initSubviews
 {
+    //设置默认值,防止代理协议中没有设置每张图片的大小
+    self.centerItemFrame = CGRectMake(50, 100, self.frame.size.width - 100, 200);
     //获取每张图片的frame
     if ([self.dataSource respondsToSelector:@selector(scrollViewWithThreePagesCenterItemFrameForWSWScrollView:)]) {
         self.centerItemFrame = [self.dataSource scrollViewWithThreePagesCenterItemFrameForWSWScrollView:self];
     }
+    
     _scrollView.frame = self.centerItemFrame;
     _scrollView.center = CGPointMake(self.frame.size.width/2 , _scrollView.center.y);
     //如果是第三种模式,那就要一下子创建五个UIImageView,并让滚动视图置中
@@ -463,5 +465,19 @@
     self.secondImageView.frame = CGRectMake(CGRectGetWidth(self.centerItemFrame) * 2, 0,CGRectGetWidth(self.centerItemFrame), CGRectGetHeight(self.centerItemFrame));
     self.thirdImageView.frame = CGRectMake(CGRectGetWidth(self.centerItemFrame) * 3, 0,CGRectGetWidth(self.centerItemFrame), CGRectGetHeight(self.centerItemFrame));
 }
+
+-(id)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    UIView *hitView = [super hitTest:point withEvent:event];
+    if (hitView == self)
+    {
+        return self.scrollView;
+    }
+    else
+    {
+        return hitView;
+    }
+}
+
 
 @end

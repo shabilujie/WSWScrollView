@@ -23,7 +23,7 @@
 
     
     //调用方法-->就是直接创建一个对象,
-    WSWScrollView *scrollView = [[WSWScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) andScrollViewMode:3];
+    WSWScrollView *scrollView = [[WSWScrollView alloc] initWithFrame:CGRectMake(0, 200, [UIScreen mainScreen].bounds.size.width , 200) andScrollViewMode:3];
     /*
      时间间隔一定要写在.datasource = self之前,因为.dataSource调用了创建时间控制器,
      之后再设置间隔时间的话,就没有作用了
@@ -43,7 +43,7 @@
 - (NSArray *)imagesArrayForWSWScrollView:(WSWScrollView *)scrollView
 {
 //#if   1是网络图片,0是本地图片(你可以手动更改试一试);
-#if 0
+#if 1
     
     NSArray *array = @[
                        @"http://image.wisewanzhi.com/474c907f303cc954485f3528406dd826@4e_0o_0l_1216h_828w_90q.jpg",
@@ -66,7 +66,7 @@
 
 -(CGRect)scrollViewWithThreePagesCenterItemFrameForWSWScrollView:(WSWScrollView *)scrollView
 {
-    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height);
+    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, 200);
     return rect;
 }
 
@@ -77,9 +77,6 @@
 {
     NSLog(@"--->我点的这是第%ld张图片",(long)index);
 }
-
-
-
 
 
 
