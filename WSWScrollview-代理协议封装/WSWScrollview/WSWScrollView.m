@@ -466,6 +466,7 @@
     self.thirdImageView.frame = CGRectMake(CGRectGetWidth(self.centerItemFrame) * 3, 0,CGRectGetWidth(self.centerItemFrame), CGRectGetHeight(self.centerItemFrame));
 }
 
+//点击左右两张图片.等同于操作中间图片
 -(id)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     UIView *hitView = [super hitTest:point withEvent:event];

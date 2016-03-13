@@ -33,6 +33,14 @@ typedef enum : NSUInteger {
 //计时器的间隔时间
 @property (nonatomic, assign) CGFloat                 timeInterval;
 
+/**
+ *  实例化方法
+ *
+ *  @param frame          轮播图区域
+ *  @param scrollViewMode 轮播方式:1.正常左右衔接轮播;2.上下叠加视差轮播;3,多屏图片轮播
+ *
+ *  @return
+ */
 - (instancetype)initWithFrame:(CGRect)frame andScrollViewMode:(ScrollViewMode)scrollViewMode;
 
 
@@ -62,7 +70,13 @@ typedef enum : NSUInteger {
  */
 - (NSArray *)imagesArrayForWSWScrollView:(WSWScrollView *)scrollView;
 
-
+/**
+ *  给模式三提供每张图片的大小
+ *
+ *  @param scrollView
+ *
+ *  @return
+ */
 - (CGRect)scrollViewWithThreePagesCenterItemFrameForWSWScrollView:(WSWScrollView *)scrollView;
 @end
 
