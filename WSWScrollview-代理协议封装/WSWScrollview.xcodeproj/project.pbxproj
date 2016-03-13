@@ -518,7 +518,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
+			GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				};
 			name = Debug;
 		};
 		69DCDFA61C8D4969007AE04C /* Release */ = {
@@ -567,7 +568,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.beijing.WSWScrollview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
+			GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				};
 			name = Debug;
 		};
 		69DCDFA91C8D4969007AE04C /* Release */ = {
@@ -590,7 +592,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.beijing.WSWScrollviewTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WSWScrollview.app/WSWScrollview";
-			};
+			GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				};
 			name = Debug;
 		};
 		69DCDFAC1C8D4969007AE04C /* Release */ = {
@@ -614,7 +617,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = WSWScrollview;
 				USES_XCTRUNNER = YES;
-			};
+			GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				};
 			name = Debug;
 		};
 		69DCDFAF1C8D4969007AE04C /* Release */ = {

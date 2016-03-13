@@ -19,20 +19,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 
+    
     //调用方法-->就是直接创建一个对象,
-    WSWScrollView *scrollView = [[WSWScrollView alloc] initWithFrame:self.view.bounds];
+    WSWScrollView *scrollView = [[WSWScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) andScrollViewMode:3];
     /*
      时间间隔一定要写在.datasource = self之前,因为.dataSource调用了创建时间控制器,
      之后再设置间隔时间的话,就没有作用了
      */
 //    scrollView.timeInterval = 1.f;
-    
     //给自己上两个代理
     scrollView.dataSource = self;
     scrollView.delegate = self;
     //添加带父视图上
     [self.view addSubview:scrollView];
+    
+
 }
 
 #pragma mark - WSWScrollViewDataSource -
@@ -40,7 +43,7 @@
 - (NSArray *)imagesArrayForWSWScrollView:(WSWScrollView *)scrollView
 {
 //#if   1是网络图片,0是本地图片(你可以手动更改试一试);
-#if 1
+#if 0
     
     NSArray *array = @[
                        @"http://image.wisewanzhi.com/474c907f303cc954485f3528406dd826@4e_0o_0l_1216h_828w_90q.jpg",
@@ -61,12 +64,20 @@
 }
 
 
+-(CGRect)scrollViewWithThreePagesCenterItemFrameForWSWScrollView:(WSWScrollView *)scrollView
+{
+    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height);
+    return rect;
+}
+
+
 #pragma mark - WSWScrollViewDelegate -
 //点击的代理,点后返回图片的位置,然后你就可以随便操作了
 - (void)wswScroView:(WSWScrollView *)scrollView didSelectRowAtIndexPath:(NSInteger)index
 {
     NSLog(@"--->我点的这是第%ld张图片",(long)index);
 }
+
 
 
 

@@ -12,16 +12,29 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    ScrollWithDefault = 1,//默认情况..最常见的一屏一屏滚动
+    ScrollWithParallax,//有视差的滚动
+    ScrollWithThreePages,//显示三张图片
+} ScrollViewMode ;
+
 @protocol WSWScrollViewDataSource;
 @protocol WSWScrollViewDelegate;
 
 @interface WSWScrollView : UIView
 
-@property (nonatomic, assign)  id<WSWScrollViewDelegate> delegate;
-@property (nonatomic, assign)  id<WSWScrollViewDataSource> dataSource;
+@property (nonatomic, assign) id<WSWScrollViewDelegate  > delegate;
+@property (nonatomic, assign) id<WSWScrollViewDataSource> dataSource;
 
+//时间控制器
+@property (nonatomic, strong) NSTimer                 *timer;
+//滚动视图的样式
+@property (nonatomic, assign) ScrollViewMode          scrollViewMode;
 //计时器的间隔时间
-@property (nonatomic, assign) CGFloat timeInterval;
+@property (nonatomic, assign) CGFloat                 timeInterval;
+
+- (instancetype)initWithFrame:(CGRect)frame andScrollViewMode:(ScrollViewMode)scrollViewMode;
+
 
 /**
  *  添加一个时间控制器(用于手动控制)
@@ -49,6 +62,8 @@
  */
 - (NSArray *)imagesArrayForWSWScrollView:(WSWScrollView *)scrollView;
 
+
+- (CGRect)scrollViewWithThreePagesCenterItemFrameForWSWScrollView:(WSWScrollView *)scrollView;
 @end
 
 /**
