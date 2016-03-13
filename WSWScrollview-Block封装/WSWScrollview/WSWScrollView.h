@@ -32,20 +32,25 @@ typedef void(^CurrentImageClick)(NSInteger index);
 @property (nonatomic, copy  ) CurrentImageClick currentImageClickBlock;
 
 /**
- *  传入照片,并返回图片点击的回调block
+ *  实例化方法
  *
- *  @param imagesArray            传入本地图片或者网络图片
- *  @param currentImageClickBlock 图片点击的回调
+ *  @param frame          轮播图区域
+ *  @param scrollViewMode 轮播方式:1.正常左右衔接轮播;2.上下叠加视差轮播;3,多屏图片轮播
+ *
+ *  @return
  */
+- (instancetype)initWithFrame:(CGRect)frame andScrollViewMode:(ScrollViewMode)scrollViewMode;
+
+
 
 /**
  *  传入照片和轮播方式,返回单击图片的回调block
  *
  *  @param imagesArray            传入本地图片或者网络图片源
  *  @param scrollViewMode         轮播的方式
- *  @param currentImageClickBlock <#currentImageClickBlock description#>
+ *  @param currentImageClickBlock 图片点击的回调
  */
-- (void)addImagesArray:(NSArray *)imagesArray scrollViewMode:(ScrollViewMode)scrollViewMode currentImageClick:(CurrentImageClick)currentImageClickBlock;
+- (void)addImagesArray:(NSArray *)imagesArray centerItemFrame:(CGRect)centerItemFrame currentImageClick:(CurrentImageClick)currentImageClickBlock;
 
 /**
  *  添加一个时间控制器(用于手动控制)

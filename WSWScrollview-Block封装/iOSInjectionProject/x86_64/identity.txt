@@ -1,0 +1,2 @@
+/Users/shengwei/Library/Developer/Xcode/DerivedData/WSWScrollview-acietxsumpposlaekwaoilovyxjv/Build/Products/Debug-iphonesimulator/WSWScrollview.app
+

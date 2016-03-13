@@ -23,7 +23,7 @@
 
     
     //调用方法-->就是直接创建一个对象,
-    WSWScrollView *scrollView = [[WSWScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) andScrollViewMode:3];
+    WSWScrollView *scrollView = [[WSWScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) andScrollViewMode:ScrollWithThreePages];
     
     /*
      

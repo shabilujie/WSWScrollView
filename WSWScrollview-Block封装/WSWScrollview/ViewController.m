@@ -12,7 +12,6 @@
 
 
 @interface ViewController ()
-
 @end
 
 @implementation ViewController
@@ -20,15 +19,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     //调用方法-->就是直接创建一个对象,
-    WSWScrollView *scrollView = [[WSWScrollView alloc] initWithFrame:self.view.bounds];
+    WSWScrollView *scrollView = [[WSWScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) andScrollViewMode:ScrollWithDefault];
+    
+    /*
+     
+     ScrollWithDefault = 1,//正常左右衔接轮播
+     ScrollWithParallax,//2上下叠加视差轮播
+     ScrollWithThreePages,//3多屏图片轮播
+     
+     */
+    
+    
     /*
      时间间隔一定要写在调用下面方法之前,因为方法里调用了创建时间控制器,
      之后再设置间隔时间的话,就没有作用了
      */
-    scrollView.timeInterval = 1.f;
-
+//    scrollView.timeInterval = 1.f;
+    
     
     //#if   1是网络图片,0是本地图片(你可以手动更改试一试);
 #if 0
@@ -48,14 +57,18 @@
                        @"火影04",
                        ];
 #endif
-
-    [scrollView addImagesArray:array currentImageClick:^(NSInteger index) {
+    
+    [scrollView addImagesArray:array centerItemFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height) currentImageClick:^(NSInteger index) {
         NSLog(@"--->我点的这是第%ld张图片",(long)index);
     }];
     
     
+    
     //添加带父视图上
     [self.view addSubview:scrollView];
+
+    
+
 }
 
 
