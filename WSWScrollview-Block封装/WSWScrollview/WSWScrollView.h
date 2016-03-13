@@ -12,14 +12,24 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    ScrollWithDefault = 1,//默认情况..最常见的一屏一屏滚动
+    ScrollWithParallax,//有视差的滚动
+    ScrollWithThreePages,//显示三张图片
+} ScrollViewMode ;
+
 typedef void(^CurrentImageClick)(NSInteger index);
 
 @interface WSWScrollView : UIView
 
+//时间控制器
+@property (nonatomic, strong) NSTimer           *timer;
+//滚动视图的样式
+@property (nonatomic, assign) ScrollViewMode    scrollViewMode;
 //计时器的间隔时间
-@property (nonatomic, assign) CGFloat timeInterval;
+@property (nonatomic, assign) CGFloat           timeInterval;
 //当前图片点击的block
-@property (nonatomic, copy) CurrentImageClick currentImageClickBlock;
+@property (nonatomic, copy  ) CurrentImageClick currentImageClickBlock;
 
 /**
  *  传入照片,并返回图片点击的回调block
@@ -27,7 +37,15 @@ typedef void(^CurrentImageClick)(NSInteger index);
  *  @param imagesArray            传入本地图片或者网络图片
  *  @param currentImageClickBlock 图片点击的回调
  */
-- (void)addImagesArray:(NSArray *)imagesArray currentImageClick:(CurrentImageClick)currentImageClickBlock;
+
+/**
+ *  传入照片和轮播方式,返回单击图片的回调block
+ *
+ *  @param imagesArray            传入本地图片或者网络图片源
+ *  @param scrollViewMode         轮播的方式
+ *  @param currentImageClickBlock <#currentImageClickBlock description#>
+ */
+- (void)addImagesArray:(NSArray *)imagesArray scrollViewMode:(ScrollViewMode)scrollViewMode currentImageClick:(CurrentImageClick)currentImageClickBlock;
 
 /**
  *  添加一个时间控制器(用于手动控制)

@@ -104,19 +104,7 @@
         [self addNextImageWith:self.secondImageView WithImageIndex:_currentImageIndex];
         [self addNextImageWith:self.thirdImageView WithImageIndex:_currentImageIndex + 1];
     }
-    
-//    //设置第一张图片
-//    if (_isLocalImagesArray) {
-//        //本地图片
-//        self.firstImageView.image = self.imageDataSource[_currentImageIndex];
-//    }else{
-//        //网络加载图片
-//        [self.firstImageView sd_setImageWithURL:[NSURL URLWithString:[self.imageDataSource firstObject]]];
-//        
-//        //(在这里可以选择使用下面方法,添加占位图片,防止网络慢,轮播图白屏)
-//        //        [self.firstImageView sd_setImageWithURL:[NSURL URLWithString:[self.urlImagesGroup firstObject]] placeholderImage:[UIImage imageNamed:@"火影01"]];
-//    }
-    
+
     //设置pageController 的页数
     self.pageController.numberOfPages = self.imageDataSource.count;
     
@@ -394,9 +382,9 @@
 //添加一个时间控制器
 - (void)addTimer
 {
-//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.timeInterval target:self selector:@selector(rollImages) userInfo:nil repeats:YES];
-//    self.timer = timer;
-//    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.timeInterval target:self selector:@selector(rollImages) userInfo:nil repeats:YES];
+    self.timer = timer;
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)rollImages
@@ -404,8 +392,11 @@
     if (self.imageDataSource.count == 0) {
         return;
     }
-    
-    [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.frame) * 2, 0) animated:YES];
+    if (self.scrollViewMode != ScrollWithThreePages) {
+        [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.frame) * 2, 0) animated:YES];
+    }else{
+        [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.centerItemFrame) * 3, 0) animated:YES];
+    }
     
 }
 
