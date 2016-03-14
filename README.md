@@ -16,3 +16,7 @@
 //模式2--->一屏显示多张图的轮播
 
 ![image](https://github.com/wswei99/WSWScrollview/raw/master/WSWScrollview-代理协议封装/模式3.gif) 
+
+实际用的时候之效果图
+
+![image](https://github.com/wswei99/WSWScrollview/raw/master/WSWScrollview-代理协议封装/实际用的时候之效果图.gif) 
