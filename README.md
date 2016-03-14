@@ -13,7 +13,7 @@
  ![image](https://github.com/wswei99/WSWScrollview/raw/master/WSWScrollview-代理协议封装/模式2.gif) 
 
 
-//模式2--->一屏显示多张图的轮播
+//模式3--->一屏显示多张图的轮播
 
 ![image](https://github.com/wswei99/WSWScrollview/raw/master/WSWScrollview-代理协议封装/模式3.gif) 
 
