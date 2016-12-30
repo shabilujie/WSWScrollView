@@ -61,9 +61,10 @@
     [scrollView addImagesArray:array centerItemFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height) currentImageClick:^(NSInteger index) {
         NSLog(@"--->我点的这是第%ld张图片",(long)index);
     }];
-    
-    
-    
+    //如果是自动循环设置为YES，导航页面设置为NO
+    scrollView.autoScroll = YES;
+//    引入sdwebimage设置placeholder;也可不设置
+//    scrollView.placeHolderImg = [UIImage imageNamed:@"火影01"];
     //添加带父视图上
     [self.view addSubview:scrollView];
 

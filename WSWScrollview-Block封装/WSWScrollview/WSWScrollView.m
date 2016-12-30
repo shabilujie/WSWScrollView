@@ -99,8 +99,7 @@
     self.pageController.numberOfPages = self.imageDataSource.count;
 
     //添加时间控制器
-    [self addTimer];
-
+//    [self addTimer];
     if (self.scrollViewMode != ScrollWithThreePages) {
         [self addNextImageWith:self.firstImageView WithImageIndex:_currentImageIndex];
     }else{
@@ -123,7 +122,8 @@
     _currentImageIndex = 0;
     //初始化timer间隔时间(默认3.0s)
     _timeInterval = 3.0;
-    
+    //默认是开启的
+    _autoScroll = YES;
     //添加滚动视图
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     scrollView.showsHorizontalScrollIndicator = NO;
@@ -276,10 +276,54 @@
     
 }
 
+-(void)setAutoScroll:(Boolean)autoScroll{
+    _autoScroll = autoScroll;
+    if(autoScroll==YES){
+        [self addTimer];
+    }
+}
+
 # pragma mark - 点击的代理 -
 - (void)tapClick:(UITapGestureRecognizer *)tap{
     !self.currentImageClickBlock ? : self.currentImageClickBlock(_currentImageIndex + 1);
 }
+
+//添加一个时间控制器
+- (void)addTimer
+{
+    if(nil == self.timer){
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.timeInterval target:self selector:@selector(rollImages) userInfo:nil repeats:YES];
+        self.timer = timer;
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    }
+}
+
+- (void)rollImages
+{
+    if (self.imageDataSource.count == 0) {
+        return;
+    }
+    if (self.scrollViewMode != ScrollWithThreePages) {
+        [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.frame) * 2, 0) animated:YES];
+    }else{
+        [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.centerItemFrame) * 3, 0) animated:YES];
+    }
+    if(_autoScroll == NO){
+        [self clearTimer];
+    }
+}
+
+//清除时间控制器
+- (void)clearTimer
+{
+    if(nil!=_timer){
+        [_timer invalidate];
+        _timer = nil;
+    }
+}
+
+
+#pragma mark --ScrollviewDelegate
 
 
 //视图持续滚动
@@ -376,48 +420,44 @@
         imageView.image = self.imageDataSource[imageIndex];
     }else{
         //添加将要出现视图的网络图片
-        [imageView sd_setImageWithURL:[NSURL URLWithString:self.imageDataSource[imageIndex]]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:self.imageDataSource[imageIndex]] placeholderImage:_placeHolderImg completed:^(UIImage *image,NSError *error,SDImageCacheType cacheType,NSURL *imageURL){
+            if(error){
+                NSLog(@"loadError:::::%@,url------>%@",error,imageURL);
+            }
+            switch (cacheType) {
+                case SDImageCacheTypeNone:
+                    NSLog(@"直接下载");
+                    break;
+                case SDImageCacheTypeDisk:
+                    NSLog(@"磁盘缓存");
+                    break;
+                case SDImageCacheTypeMemory:
+                    NSLog(@"内存缓存");
+                    break;
+                default:
+                    break;
+            }
+            
+        }];
     }
 }
 
-//添加一个时间控制器
-- (void)addTimer
-{
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.timeInterval target:self selector:@selector(rollImages) userInfo:nil repeats:YES];
-    self.timer = timer;
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-}
 
-- (void)rollImages
-{
-    if (self.imageDataSource.count == 0) {
-        return;
-    }
-    if (self.scrollViewMode != ScrollWithThreePages) {
-        [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.frame) * 2, 0) animated:YES];
-    }else{
-        [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.centerItemFrame) * 3, 0) animated:YES];
-    }
-    
-}
-
-//清除时间控制器
-- (void)clearTimer
-{
-    [_timer invalidate];
-    _timer = nil;
-}
 
 //手动拖动
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     //开始拖动的时候,清除时间控制器
-    [self clearTimer];
+    if(_autoScroll == YES){
+        [self clearTimer];
+    }
 }
 //结束拖动的时候,新增时间控制器
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    [self addTimer];
+    if(_autoScroll == YES){
+        [self addTimer];
+    }
 }
 
 
@@ -454,5 +494,12 @@
     }
 }
 
+-(void)dealloc{
+    if(nil!=_scrollView){
+        _scrollView.delegate = nil;
+        _scrollView = nil;
+
+    }
+}
 
 @end
