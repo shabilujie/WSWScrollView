@@ -97,9 +97,9 @@
     
     //设置pageController 的页数
     self.pageController.numberOfPages = self.imageDataSource.count;
-
+    
     //添加时间控制器
-//    [self addTimer];
+    //    [self addTimer];
     if (self.scrollViewMode != ScrollWithThreePages) {
         [self addNextImageWith:self.firstImageView WithImageIndex:_currentImageIndex];
     }else{
@@ -130,26 +130,26 @@
     scrollView.pagingEnabled = YES;
     scrollView.delegate = self;
     scrollView.clipsToBounds  = NO;
-
+    
     //添加点击事件
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     [scrollView addGestureRecognizer:tap];
     //添加到父视图上
     [self addSubview:scrollView];
     self.scrollView = scrollView;
-
+    
     //给滚动视图添加两个UIImageView
     UIImageView *firstImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     self.firstImageView = firstImageView;
     
     UIImageView *secondImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     self.secondImageView = secondImageView;
-
+    
     [self.scrollView addSubview:secondImageView];
     [self.scrollView addSubview:firstImageView];
     
     if (self.scrollViewMode != ScrollWithThreePages) {
-
+        
         //默认和视差,用一样的双UIImageView就可以搞定
         scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.frame), 0);
         scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.frame) * 3, CGRectGetHeight(self.frame));
@@ -162,7 +162,7 @@
         self.thirdImageView = thirdImageView;
         [self.scrollView addSubview:thirdImageView];
     }
-
+    
     //设置pageController(这里可以根据个人喜好自定义)
     UIPageControl *pageController = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), 20)];
     pageController.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) - 20);
@@ -201,11 +201,11 @@
     }
     
     //这块是完成轮播的关键(比如有四张图片:一二三四,轮播的排列是这样的:四一二三四一)
-        if (_nextImageIndex == -1) {
-            _nextImageIndex = (int)self.imageDataSource.count - 1;
-        }else if (_nextImageIndex == self.imageDataSource.count){
-            _nextImageIndex = 0;
-        }
+    if (_nextImageIndex == -1) {
+        _nextImageIndex = (int)self.imageDataSource.count - 1;
+    }else if (_nextImageIndex == self.imageDataSource.count){
+        _nextImageIndex = 0;
+    }
     //添加将要出现的图片
     [self addNextImageWith:self.secondImageView WithImageIndex:_nextImageIndex];
     //设置将要出现图片的中心点
@@ -237,7 +237,7 @@
             _nextImageIndex = 0;
         }else if (_nextImageIndex == -2){
             _nextImageIndex = (int)self.imageDataSource.count - 2;
-
+            
         }
         
         [self addNextImageWith:self.thirdImageView WithImageIndex:_nextImageIndex];
@@ -247,7 +247,7 @@
     }
     else if (offsetX > CGRectGetWidth(self.centerItemFrame) * 2){
         //从右往左
-
+        
         if (offsetX - (CGRectGetWidth(self.centerItemFrame) * 2) > (([UIScreen mainScreen].bounds.size.width - CGRectGetWidth(self.centerItemFrame)) / 2)) {
             
             nextImageViewCenterX = CGRectGetWidth(self.centerItemFrame) * 4.5f;
@@ -271,7 +271,7 @@
         self.firstImageView.center = center ;
         
     }else{
-//        nextImageViewCenterX = CGRectGetWidth(self.frame) / 2;
+        //        nextImageViewCenterX = CGRectGetWidth(self.frame) / 2;
     }
     
 }
@@ -340,7 +340,7 @@
         case ScrollWithThreePages:
         {
             [self ScrollWithThreePagesAddImageViewWith:scrollView.contentOffset.x];
-
+            
             break;
         }
         default:
@@ -468,7 +468,7 @@
     //如果是第三种模式,那就要一下子创建五个UIImageView,并让滚动视图置中
     _scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.centerItemFrame)*2, 0);
     _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.centerItemFrame) * 5, CGRectGetHeight(self.centerItemFrame));
-
+    
     //设置三个视图的初始位置
     [self scrollViewWithThreePagesRetFrame];
 }
@@ -495,11 +495,11 @@
 }
 
 -(void)dealloc{
-    if(nil!=_scrollView){
-        _scrollView.delegate = nil;
-        _scrollView = nil;
-
-    }
+//    if(nil!=_scrollView){
+//        _scrollView.delegate = nil;
+//        _scrollView = nil;
+//        
+//    }
 }
 
 @end

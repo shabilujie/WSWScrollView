@@ -30,7 +30,7 @@ typedef void(^CurrentImageClick)(NSInteger index);
 @property (nonatomic, assign) CGFloat           timeInterval;
 //当前图片点击的block
 @property (nonatomic, copy  ) CurrentImageClick currentImageClickBlock;
-//占位图
+//占位图，默认加载图片
 @property(nonatomic,copy)UIImage *placeHolderImg;
 //是否自动旋转
 @property(nonatomic,assign)Boolean autoScroll;
@@ -66,3 +66,4 @@ typedef void(^CurrentImageClick)(NSInteger index);
 - (void)clearTimer;
 
 @end
+s
